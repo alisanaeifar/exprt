@@ -1,0 +1,6 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Dev_Export::orders" title="Orders Data" translate="title" module="Dev_Export" parent="Magento_Sales::sales" sortOrder="50" dependsOnModule="Dev_Export" resource="Dev_Export::orders"/>
+        <add id="Dev_Export::orders_export" title="Export" translate="title" module="Dev_Export" parent="Dev_Export::orders" sortOrder="10" dependsOnModule="Dev_Export" action="export/orders" resource="Dev_Export::orders"/>
+    </menu>
+</config>

@@ -1,0 +1,66 @@
+<form action="<?php echo $this->getUrl("export/index/export") ?>" method="post">
+    <br><br>
+    Export To XML All Orders Data :
+    <br><br>
+    <input class="action primary" type="submit" name="sub" value="Click To Export">
+</form>
+
+<?php
+
+$_orders = $block->getOrders();
+if ($_orders && count($_orders)) {
+$complete = $pending = $data = $canceled = $processing = $onHold = 0;
+foreach ($_orders as $_order) {
+    $label = $_order->getStatusLabel();
+    $label1 = $_order->getId();
+    switch ($label) {
+
+        case 'Pending' : $pending++;
+
+            $orderId = $pending;
+            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+            $order = $objectManager->create('\Magento\Sales\Model\OrderRepository')->get($orderId);
+
+            // Fetch whole billing information
+            print_r($order->getBillingAddress()->getData());
+
+            // Fetch specific billing information
+            echo $order->getBillingAddress()->getCity();
+            echo $order->getBillingAddress()->getRegionId();
+            echo $order->getBillingAddress()->getCountryId();
+
+            // Fetch whole shipping information
+            print_r($order->getShippingAddress()->getData());
+
+            // Fetch specific shipping information
+            echo $order->getShippingAddress()->getCity();
+            echo $order->getShippingAddress()->getRegionId();
+            echo $order->getShippingAddress()->getCountryId();
+
+            $productId = $pending; //Product Id
+            $product = $this->getProduct($productId);
+
+            echo $product->getName(); //Get Product Name
+
+            break;
+
+
+
+    }
+}
+
+    echo "Pending Order : " . $pending . "<br>";
+
+
+
+
+
+}
+else{
+    echo "You have no Orders";
+}
+
+?>
+
+
+
